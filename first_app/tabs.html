@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>First React App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  </head>
+  <body>
+    <div id="my-component">
+
+    </div>
+
+    <script type="text/jsx">
+    // var Tab = React.createClass({
+    //   getInitialState: function() {
+    //     return { active: false }
+    //   },
+    //
+    //   render: function() {
+    //     <li>{}</li>
+    //   }
+    // });
+
+    var Tabs = React.createClass({
+      getInitialState: function() {
+        return { selected: 0 };
+      },
+
+      clicked: function(index) {
+        this.setState({ selected: index})
+      },
+
+      render: function() {
+
+        var self = this;
+
+        return (
+
+            <div>
+              <ul>
+                { this.props.items.map(function(i, index) {
+                  var style = '';
+
+                  if(self.state.selected == index){
+                    style = "focused"
+                  }
+
+                  return <li className={style} onClick={self.clicked.bind(self, index)}>{i}</li>
+                })
+                }
+              </ul>
+              <p>
+                Content: { this.props.items[this.state.selected].content }
+              </p>
+            </div>
+        )
+      }
+    });
+
+    var tabs = [
+      {title: "Movie", content: "This is a scary movie"},
+      {title: "Music", content: "This is a nice song"},
+      {title: "Game", content: "The coolest game"},
+      {title: "Book", content: "The most interesting Book"}
+    ]
+
+    React.render(
+      <Tabs items={tabs}/>,
+      document.getElementById('my-component')
+    );
+
+    </script>
+  </body>
+</html>
